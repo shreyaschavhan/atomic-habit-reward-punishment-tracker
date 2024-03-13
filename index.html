@@ -11,7 +11,7 @@
 <body>
     <main>
         <h1>Reward Punishment Tracker</h1>
-        <div id="counter">0</div>
+        <div id="counter_reward">0</div>
         <div class="button">
             <button id="add">Reward (+1)</button>
             <button id="subtract">Punish(-1) </button>
@@ -26,43 +26,43 @@
         </div>
         <div class="goal">
             <div>
-                <label for="goal">Set Goal Price:</label>
-                <input type="number" id="goal" min="1" value="100">
+                <label for="goal_price">Set Goal Price:</label>
+                <input type="number" id="goal_price" min="1" value="100">
             </div>
             <button id="setGoal">Set</button>
         </div>
     </main>
     <script>
-        const counterDisplay = document.getElementById('counter');
+        const counter_rewardDisplay = document.getElementById('counter_reward');
         const addButton = document.getElementById('add');
         const subtractButton = document.getElementById('subtract');
         const resetButton = document.getElementById('reset');
         const rewardInput = document.getElementById('reward');
         const setRewardButton = document.getElementById('setReward');
-        const goalInput = document.getElementById('goal');
-        const setGoalButton = document.getElementById('setGoal');
+        const goal_priceInput = document.getElementById('goal_price');
+        const setgoal_priceButton = document.getElementById('setGoal');
 
         let reward = localStorage.getItem('reward') || "";
         let rewardPrice = parseInt(localStorage.getItem('rewardPrice')) || 0;
-        let goal = parseInt(localStorage.getItem('goal')) || 100;
-        let count = parseInt(localStorage.getItem('counter')) || 0;
+        let goal_price = parseInt(localStorage.getItem('goal_price')) || 100;
+        let count = parseInt(localStorage.getItem('counter_reward')) || 0;
 
         // Initialize display values
-        counterDisplay.textContent = count;
+        counter_rewardDisplay.textContent = count;
         rewardInput.value = reward;
-        goalInput.value = goal;
+        goal_priceInput.value = goal_price;
 
         // Update counter display
-        function updateCounter() {
-            counterDisplay.textContent = count;
-            localStorage.setItem('counter', count);
+        function updatecounter_reward() {
+            counter_rewardDisplay.textContent = count;
+            localStorage.setItem('counter_reward', count);
         }
 
         // Event listeners for buttons
         addButton.addEventListener('click', () => {
             count++;
             rewardPrice++;
-            updateCounter();
+            updatecounter_reward();
             checkGoal();
         });
 
@@ -70,14 +70,14 @@
             if (count > 0) {
                 count--;
                 rewardPrice--;
-                updateCounter();
+                updatecounter_reward();
             }
         });
 
         resetButton.addEventListener('click', () => {
             count = 0;
             rewardPrice = 0;
-            updateCounter();
+            updatecounter_reward();
         });
 
         setRewardButton.addEventListener('click', () => {
@@ -86,15 +86,15 @@
             alert("Reward set successfully.");
         });
 
-        setGoalButton.addEventListener('click', () => {
-            goal = parseInt(goalInput.value);
-            localStorage.setItem('goal', goal);
+        setgoal_priceButton.addEventListener('click', () => {
+            goal_price = parseInt(goal_priceInput.value);
+            localStorage.setItem('goal_price', goal_price);
             alert("Goal price set successfully.");
         });
 
         // Check if goal is reached
         function checkGoal() {
-            if (rewardPrice >= goal) {
+            if (rewardPrice >= goal_price) {
                 alert(`Congratulations! You've reached your goal of ${reward}.`);
             }
         }
@@ -108,8 +108,8 @@
         setTimeout(() => {
             count = 0;
             rewardPrice = 0;
-            updateCounter();
-            localStorage.setItem('counter', count);
+            updatecounter_reward();
+            localStorage.setItem('counter_reward', count);
         }, timeToReset);
     </script>
 </body>
